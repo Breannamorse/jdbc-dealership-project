@@ -11,7 +11,7 @@ public class Vehicle {
     private int odometer;
     private double price;
 
-    public Vehicle() {
+    public Vehicle(double minPrice, double maxPrice) {
     }
 
     public Vehicle(String vin, String make, String model, int year, boolean sold, String color, String vehicleType, int odometer, double price) {
