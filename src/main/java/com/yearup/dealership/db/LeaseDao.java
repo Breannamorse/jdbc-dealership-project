@@ -25,7 +25,7 @@ public class LeaseDao {
             preparedStatement.setString(1, leaseContract.getVin());
             preparedStatement.setDate(2, leaseContract.getLeaseStart());
             preparedStatement.setDate(3, leaseContract.getLeaseEnd());
-            preparedStatement.setDouble(3, leaseContract.getMonthlyPayment());
+            preparedStatement.setDouble(4, leaseContract.getMonthlyPayment());
 
             int rows = preparedStatement.executeUpdate();
             System.out.printf("Rows updated %d\n", rows);
