@@ -16,18 +16,18 @@ public class InventoryDao {
 
     public void addVehicleToInventory(String vin, int dealershipId) {
         // TODO: Implement the logic to add a vehicle to the inventory
-        String query = "insert into shippers (vin, dealershipId) values (?,?);";
-        int keyReturned = 0;
+     //   String query = "insert into shippers (vin, dealershipId) values (?,?);";
+    //    int keyReturned = 0;
 
-        try (Connection connection = dataSource.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);) {
-            preparedStatement.set
+      //  try (Connection connection = dataSource.getConnection();
+        //     PreparedStatement preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);) {
+        //    preparedStatement.set
         }
 
-    } {
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+  //  } {
+   //     } catch (SQLException e) {
+   //         throw new RuntimeException(e);
+   //     }
 
     public void removeVehicleFromInventory(String vin) {
         // TODO: Implement the logic to remove a vehicle from the inventory

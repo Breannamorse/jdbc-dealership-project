@@ -65,12 +65,12 @@ public class VehicleDao {
         String query = "SELECT minPrice, maxPrice FROM Vehicle;";
 
         try (Connection connection = dataSource.getConnection();
-             CallableStatement callableStatement = connection.prepareCall(query)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
-            callableStatement.setDouble(1, minPrice);
-            callableStatement.setDouble(2, maxPrice);
+            preparedStatement.setDouble(1, minPrice);
+            preparedStatement.setDouble(2, maxPrice);
 
-            try (ResultSet results = callableStatement.executeQuery()) {
+            try (ResultSet results = preparedStatement.executeQuery()) {
 
                 while (results.next()) {
                     minPrice = results.getDouble("minPrice");
@@ -90,13 +90,13 @@ public class VehicleDao {
     public List<Vehicle> searchByMakeModel(String make, String model) {
         // TODO: Implement the logic to search vehicles by make and model
         List<Vehicle> vehicles = new ArrayList<>();
-        String query = "SELECT make, model FROM Vehicle;";
+        String query = "SELECT * FROM vehicles WHERE make = ? and model = ?;";
 
         try (Connection connection = dataSource.getConnection();
-             CallableStatement callableStatement = connection.prepareCall(query)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
-            callableStatement.setString(1, make);
-            callableStatement.setString(2, model);
+            preparedStatement.setString(1, make);
+            preparedStatement.setString(2, model);
 
             Vehicle vehicle = new Vehicle(make, model);
             vehicles.add(vehicle);
@@ -105,84 +105,94 @@ public class VehicleDao {
             throw new RuntimeException(e);
         }
 
-        return new ArrayList<>();
+        return vehicles;
     }
 
     public List<Vehicle> searchByYearRange(int minYear, int maxYear) {
         // TODO: Implement the logic to search vehicles by year range
         List<Vehicle> vehicles = new ArrayList<>();
-        String query = "SELECT minYear, maxYear FROM Vehicle;";
+        String query = "SELECT * FROM vehicles WHERE year between ? and ?;";
 
         try (Connection connection = dataSource.getConnection();
-             CallableStatement callableStatement = connection.prepareCall(query)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
-            callableStatement.setInt(1, minYear);
-            callableStatement.setInt(2, maxYear);
+            preparedStatement.setInt(1, minYear);
+            preparedStatement.setInt(2, maxYear);
 
             Vehicle vehicle = new Vehicle(minYear, maxYear);
             vehicle.add(vehicle);
 
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         }
 
 
-        return new ArrayList<>();
+        return vehicles;
     }
 
     public List<Vehicle> searchByColor(String color) {
         // TODO: Implement the logic to search vehicles by color
         List<Vehicle> vehicles = new ArrayList<>();
-        String query = "SELECT minYear, maxYear FROM Vehicle;";
+        String query = "SELECT color FROM Vehicle;";
 
         try (Connection connection = dataSource.getConnection();
-             CallableStatement callableStatement = connection.prepareCall(query)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
-            callableStatement.setString(1, color);
+             preparedStatement.setString(1, color);
 
 
             Vehicle vehicle = new Vehicle(color);
             vehicle.add(vehicle);
 
 
-            return new ArrayList<>();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+            return vehicles;
         }
 
-        public List<Vehicle> searchByMileageRange ( int minMileage, int maxMileage){
+
+        public List<Vehicle> searchByMileageRange ( int minMileage, int maxMileage) {
             // TODO: Implement the logic to search vehicles by mileage range
             List<Vehicle> vehicles = new ArrayList<>();
-            String query = "SELECT minYear, maxYear FROM Vehicle;";
+            String query = "SELECT minMileage, maxMileage FROM Vehicle;";
 
             try (Connection connection = dataSource.getConnection();
-                 CallableStatement callableStatement = connection.prepareCall(query)) {
+                 PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
-                callableStatement.setInt(1, minMileage);
-                callableStatement.setInt(2, maxMileage);
+                preparedStatement.setInt(1, minMileage);
+                preparedStatement.setInt(2, maxMileage);
 
 
                 Vehicle vehicle = new Vehicle(minMileage, maxMileage);
                 vehicle.add(vehicle);
 
 
-                return new ArrayList<>();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
             }
+            return vehicles;
+        }
 
-            public List<Vehicle> searchByType (String type){
+            public List<Vehicle> searchByType (String type) {
                 // TODO: Implement the logic to search vehicles by type
                 List<Vehicle> vehicles = new ArrayList<>();
                 String query = "SELECT type FROM Vehicle;";
 
                 try (Connection connection = dataSource.getConnection();
-                     CallableStatement callableStatement = connection.prepareCall(query)) {
+                     PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
-                    callableStatement.setInt(1, type);
+                    preparedStatement.setString(1, type);
 
-                    Vehicle vehicle = new Vehicle(type);
-                    vehicle.add(vehicle);
 
-                    return new ArrayList<>();
+                } catch (SQLException e) {
+                    return vehicles;
                 }
-
+                return vehicles;
+            }
                 private Vehicle createVehicleFromResultSet (ResultSet resultSet) throws SQLException {
-                    Vehicle vehicle = new Vehicle(minPrice, maxPrice);
+                    Vehicle vehicle = new Vehicle();
                     vehicle.setVin(resultSet.getString("VIN"));
                     vehicle.setMake(resultSet.getString("make"));
                     vehicle.setModel(resultSet.getString("model"));
@@ -195,8 +205,8 @@ public class VehicleDao {
                     return vehicle;
                 }
             }
-        }
-    }
-}
+
+
+
 
 

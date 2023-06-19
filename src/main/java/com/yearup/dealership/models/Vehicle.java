@@ -10,9 +10,21 @@ public class Vehicle {
     private String vehicleType;
     private int odometer;
     private double price;
+public Vehicle() {
+
+}
+    public Vehicle(String color) {
+        this.color = color;
+    }
+
+    public Vehicle(String make, String model) {
+        this.make = make;
+        this.model = model;
+    }
 
     public Vehicle(double minPrice, double maxPrice) {
     }
+
 
     public Vehicle(String vin, String make, String model, int year, boolean sold, String color, String vehicleType, int odometer, double price) {
         this.vin = vin;
@@ -111,5 +123,8 @@ public class Vehicle {
                 ", odometer=" + odometer +
                 ", price=" + price +
                 '}';
+    }
+
+    public void add(Vehicle vehicle) {
     }
 }
