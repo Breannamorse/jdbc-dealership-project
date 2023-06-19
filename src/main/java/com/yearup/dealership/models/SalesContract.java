@@ -1,5 +1,6 @@
 package com.yearup.dealership.models;
 
+import java.sql.Date;
 import java.time.LocalDate;
 
 public class SalesContract {
@@ -7,6 +8,7 @@ public class SalesContract {
     private String vin;
     private LocalDate saleDate;
     private double price;
+
 
     public SalesContract(String vin, LocalDate saleDate, double price) {
         this.vin = vin;
@@ -37,8 +39,8 @@ public class SalesContract {
         this.vin = vin;
     }
 
-    public LocalDate getSaleDate() {
-        return saleDate;
+    public Date getSaleDate() {
+        return Date.valueOf(saleDate);
     }
 
     public void setSaleDate(LocalDate saleDate) {
