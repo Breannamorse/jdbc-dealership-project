@@ -1,5 +1,6 @@
 package com.yearup.dealership.models;
 
+import java.sql.Date;
 import java.time.LocalDate;
 
 public class LeaseContract {
@@ -40,16 +41,16 @@ public class LeaseContract {
         this.vin = vin;
     }
 
-    public LocalDate getLeaseStart() {
-        return leaseStart;
+    public Date getLeaseStart() {
+        return Date.valueOf(leaseStart);
     }
 
     public void setLeaseStart(LocalDate leaseStart) {
         this.leaseStart = leaseStart;
     }
 
-    public LocalDate getLeaseEnd() {
-        return leaseEnd;
+    public Date getLeaseEnd() {
+        return Date.valueOf(leaseEnd);
     }
 
     public void setLeaseEnd(LocalDate leaseEnd) {
